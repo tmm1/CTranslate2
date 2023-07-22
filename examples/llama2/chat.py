@@ -10,7 +10,7 @@ def main():
     model_dir = sys.argv[1]
 
     device = "cuda"
-    compute_type = "float16"  # Use "int8_float16" to reduce VRAM usage.
+    compute_type = "int8"  # Use "int8_float16" to reduce VRAM usage.
 
     print("Loading the model...")
     sp = spm.SentencePieceProcessor(os.path.join(model_dir, "tokenizer.model"))
