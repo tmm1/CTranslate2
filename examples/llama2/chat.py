@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 
 import ctranslate2
 import sentencepiece as spm
@@ -66,7 +67,10 @@ def main():
 def generate_words(sp, step_results):
     tokens_buffer = []
 
+    t0 = time.time()
+    ntok = 0
     for step_result in step_results:
+        ntok += 1
         is_new_word = step_result.token.startswith("▁")
 
         if is_new_word and tokens_buffer:
@@ -81,6 +85,8 @@ def generate_words(sp, step_results):
         word = sp.decode(tokens_buffer)
         if word:
             yield word
+    tt = time.time() - t0
+    print(ntok / tt, " tokens/s")
 
 
 # The code below is adapted from
